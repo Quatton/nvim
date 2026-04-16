@@ -2,7 +2,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("LspKeymaps", {}),
 	callback = function(ev)
 		local opts = { buffer = ev.buf, silent = true }
-
+		local fzf = require("fzf-lua")
 		-- Use fzf-lua for navigation/searching
 		vim.keymap.set("n", "gd", fzf.lsp_definitions, opts)
 		vim.keymap.set("n", "gr", fzf.lsp_references, opts)
