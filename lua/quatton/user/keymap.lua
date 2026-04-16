@@ -3,20 +3,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local opts = { buffer = ev.buf, silent = true }
 
-		local map = vim.keymap.set
+		-- Use fzf-lua for navigation/searching
+		vim.keymap.set("n", "gd", fzf.lsp_definitions, opts)
+		vim.keymap.set("n", "gr", fzf.lsp_references, opts)
+		vim.keymap.set("n", "gi", fzf.lsp_implementations, opts)
+		vim.keymap.set("n", "<leader>ca", fzf.lsp_code_actions, opts)
+		vim.keymap.set("n", "<leader>sd", fzf.diagnostics_document, opts)
 
-		map("n", "gd", vim.lsp.buf.definition, opts)
-		map("n", "gD", vim.lsp.buf.declaration, opts)
-		map("n", "gr", vim.lsp.buf.references, opts)
-		map("n", "gi", vim.lsp.buf.implementation, opts)
-		map("n", "K", vim.lsp.buf.hover, opts)
+		-- Keep standard LSP for direct interactions
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
-		map("n", "<leader>rn", vim.lsp.buf.rename, opts)
-		map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-
-		map("n", "<leader>e", vim.diagnostic.open_float, opts)
-		map("n", "[d", vim.diagnostic.goto_prev, opts)
-		map("n", "]d", vim.diagnostic.goto_next, opts)
+		-- Keep diagnostic navigation
+		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 	end,
 })
 
