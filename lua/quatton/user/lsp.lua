@@ -1,25 +1,18 @@
-local lsp_configs = {
-	lua_ls = {
-		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-				},
-				diagnostics = {
-					globals = { "vim" },
-				},
-				workspace = {
-					library = vim.api.nvim_get_runtime_file("", true),
-					checkThirdParty = false,
-				},
-				telemetry = {
-					enable = false,
-				},
-			},
-		},
+vim.diagnostic.config({
+	virtual_text = {
+		prefix = "●", -- or "■", "▎", ""
+		spacing = 4,
 	},
-}
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+	float = {
+		border = "rounded",
+		source = "if_many",
+		header = "",
+		prefix = "",
+	},
+})
 
-for server, opts in pairs(lsp_configs) do
-	vim.lsp.config(server, opts)
-end
+vim.opt.loadplugins = true

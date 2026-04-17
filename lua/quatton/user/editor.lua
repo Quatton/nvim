@@ -11,3 +11,6 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 
 vim.opt.clipboard = "unnamedplus"
+
+-- Disable spell checking
+vim.opt.spell = false
